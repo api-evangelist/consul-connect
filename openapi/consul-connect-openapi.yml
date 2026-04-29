@@ -1,0 +1,336 @@
+openapi: 3.0.3
+info:
+  title: HashiCorp Consul Connect API
+  description: >-
+    HTTP API for the Consul Connect service mesh subsystem of HashiCorp
+    Consul. Connect APIs cover intentions (service-to-service traffic
+    authorization) and certificate authority (CA) management for the
+    built-in mesh CA. ACL tokens are typically passed via the X-Consul-Token
+    header.
+  version: '1.0.0'
+  contact:
+    name: HashiCorp Consul
+    url: https://developer.hashicorp.com/consul
+servers:
+  - url: http://localhost:8500/v1
+    description: Local Consul agent
+  - url: https://consul.example.com/v1
+    description: Production Consul cluster
+tags:
+  - name: Intentions
+    description: Service-to-service traffic authorization
+  - name: CA
+    description: Certificate authority management
+security:
+  - ConsulToken: []
+paths:
+  /connect/intentions:
+    get:
+      operationId: listIntentions
+      summary: List all intentions
+      tags: [Intentions]
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/Partition'
+        - name: filter
+          in: query
+          description: Filter expression for intentions
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of intentions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Intention'
+  /connect/intentions/exact:
+    get:
+      operationId: readIntentionByExact
+      summary: Read intention by source and destination
+      tags: [Intentions]
+      parameters:
+        - name: source
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: destination
+          in: query
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/Partition'
+      responses:
+        '200':
+          description: Matching intention
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Intention'
+    put:
+      operationId: upsertIntentionByExact
+      summary: Create or replace intention by source and destination
+      tags: [Intentions]
+      parameters:
+        - name: source
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: destination
+          in: query
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntentionInput'
+      responses:
+        '200':
+          description: Intention upserted
+    delete:
+      operationId: deleteIntentionByExact
+      summary: Delete intention by source and destination
+      tags: [Intentions]
+      parameters:
+        - name: source
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: destination
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Intention deleted
+  /connect/intentions/check:
+    get:
+      operationId: checkIntention
+      summary: Check if a connection would be authorized
+      tags: [Intentions]
+      parameters:
+        - name: source
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: destination
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Authorization decision
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Allowed:
+                    type: boolean
+  /connect/intentions/match:
+    get:
+      operationId: matchIntentions
+      summary: List intentions matching a source or destination
+      tags: [Intentions]
+      parameters:
+        - name: by
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - source
+              - destination
+        - name: name
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Matching intentions
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Intention'
+  /connect/ca/roots:
+    get:
+      operationId: listCaRoots
+      summary: List CA root certificates
+      tags: [CA]
+      parameters:
+        - name: pem
+          in: query
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Active root ID and root certificates
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaRoots'
+  /connect/ca/configuration:
+    get:
+      operationId: getCaConfiguration
+      summary: Get CA configuration
+      tags: [CA]
+      responses:
+        '200':
+          description: Current CA configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaConfiguration'
+    put:
+      operationId: updateCaConfiguration
+      summary: Update CA configuration
+      tags: [CA]
+      parameters:
+        - name: ForceWithoutCrossSigning
+          in: query
+          schema:
+            type: boolean
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CaConfiguration'
+      responses:
+        '200':
+          description: Configuration updated
+components:
+  securitySchemes:
+    ConsulToken:
+      type: apiKey
+      in: header
+      name: X-Consul-Token
+  parameters:
+    Namespace:
+      name: ns
+      in: query
+      description: Namespace (Consul Enterprise)
+      schema:
+        type: string
+    Partition:
+      name: partition
+      in: query
+      description: Admin partition (Consul Enterprise)
+      schema:
+        type: string
+  schemas:
+    Intention:
+      type: object
+      properties:
+        ID:
+          type: string
+        SourceName:
+          type: string
+        DestinationName:
+          type: string
+        SourceNS:
+          type: string
+        DestinationNS:
+          type: string
+        Action:
+          type: string
+          enum: [allow, deny]
+        Description:
+          type: string
+        Precedence:
+          type: integer
+        Meta:
+          type: object
+          additionalProperties:
+            type: string
+        CreateIndex:
+          type: integer
+        ModifyIndex:
+          type: integer
+    IntentionInput:
+      type: object
+      properties:
+        Action:
+          type: string
+          enum: [allow, deny]
+        Description:
+          type: string
+        Meta:
+          type: object
+          additionalProperties:
+            type: string
+    CaRoots:
+      type: object
+      properties:
+        ActiveRootID:
+          type: string
+        TrustDomain:
+          type: string
+        Roots:
+          type: array
+          items:
+            $ref: '#/components/schemas/CaRoot'
+    CaRoot:
+      type: object
+      properties:
+        ID:
+          type: string
+        Name:
+          type: string
+        SerialNumber:
+          type: integer
+        SigningKeyID:
+          type: string
+        ExternalTrustDomain:
+          type: string
+        NotBefore:
+          type: string
+          format: date-time
+        NotAfter:
+          type: string
+          format: date-time
+        RootCert:
+          type: string
+        IntermediateCerts:
+          type: array
+          items:
+            type: string
+        Active:
+          type: boolean
+        PrivateKeyType:
+          type: string
+        PrivateKeyBits:
+          type: integer
+    CaConfiguration:
+      type: object
+      properties:
+        Provider:
+          type: string
+          example: consul
+        Config:
+          type: object
+          additionalProperties: true
+        State:
+          type: object
+          additionalProperties: true
+        ForceWithoutCrossSigning:
+          type: boolean
+        ModifyIndex:
+          type: integer

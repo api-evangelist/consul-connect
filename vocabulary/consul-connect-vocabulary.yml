@@ -1,0 +1,69 @@
+aid: consul-connect:vocabulary
+name: Consul Connect Service Mesh Vocabulary
+description: >-
+  Shared vocabulary for HashiCorp Consul Connect, the service mesh component
+  of HashiCorp Consul. Connect introduces sidecar proxies, intentions, mesh
+  gateways, and a built-in CA to provide service identity, mTLS, and traffic
+  authorization for service-to-service communication across heterogeneous
+  runtimes.
+namespace: https://developer.hashicorp.com/consul/vocabulary#
+terms:
+  - term: ServiceMesh
+    definition: >-
+      An infrastructure layer that controls service-to-service communication
+      with identity, encryption, observability, and policy enforcement.
+  - term: Intention
+    definition: >-
+      A declarative authorization rule that allows or denies communication
+      between a source and destination service in the Consul mesh.
+    sameAs: https://developer.hashicorp.com/consul/docs/connect/intentions
+  - term: SidecarProxy
+    definition: >-
+      An Envoy proxy deployed alongside an application instance to terminate
+      and originate mTLS connections, enforce intentions, and apply traffic
+      policies.
+    sameAs: https://www.envoyproxy.io/
+  - term: MeshGateway
+    definition: >-
+      A gateway that bridges traffic between Consul datacenters or admin
+      partitions over the WAN while preserving mTLS service identity.
+  - term: TerminatingGateway
+    definition: >-
+      A gateway that allows mesh services to communicate with external
+      services that are not registered in the mesh.
+  - term: IngressGateway
+    definition: >-
+      A gateway that exposes mesh services to clients outside the mesh, with
+      optional TLS termination and routing.
+  - term: ApiGateway
+    definition: >-
+      Consul's North-South gateway that integrates with the Kubernetes
+      Gateway API and enables L7 routing into mesh services.
+  - term: ConsulCA
+    definition: >-
+      The built-in Connect certificate authority that issues short-lived
+      mTLS leaf certificates to services. Pluggable providers include
+      Consul, Vault, AWS PCA, and external root.
+  - term: ServiceIntent
+    definition: >-
+      A higher-level concept describing the desired authorization between
+      two services, materialized through one or more Intention resources.
+  - term: ServiceDefaults
+    definition: >-
+      A configuration entry that sets default protocol, timeouts, and
+      mesh-wide behavior for a service.
+  - term: ServiceResolver
+    definition: >-
+      A configuration entry that defines how requests for a service are
+      resolved to subsets and failover targets.
+  - term: ServiceRouter
+    definition: >-
+      A configuration entry that performs L7 routing of requests to a
+      service based on path, header, or method matchers.
+  - term: ServiceSplitter
+    definition: >-
+      A configuration entry that splits traffic between subsets of a service
+      by weighted percentages, supporting canary and blue/green rollouts.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

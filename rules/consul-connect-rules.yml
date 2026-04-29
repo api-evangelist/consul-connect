@@ -1,0 +1,52 @@
+extends:
+  - "spectral:oas"
+documentationUrl: https://developer.hashicorp.com/consul/api-docs/connect
+rules:
+  consul-connect-info-title:
+    description: Connect OpenAPI info.title must reference Consul Connect
+    severity: error
+    given: "$.info.title"
+    then:
+      function: pattern
+      functionOptions:
+        match: "(?i)Consul\\s+Connect"
+  consul-connect-server-defined:
+    description: At least one server URL must be defined
+    severity: error
+    given: "$.servers"
+    then:
+      function: length
+      functionOptions:
+        min: 1
+  consul-connect-v1-prefix:
+    description: All paths should sit under the /v1 prefix at the server URL level
+    severity: warn
+    given: "$.servers[*].url"
+    then:
+      function: pattern
+      functionOptions:
+        match: "/v1$"
+  consul-connect-tag-required:
+    description: Connect operations must be tagged with Intentions or CA
+    severity: warn
+    given: "$.paths.*[get,put,post,delete,patch].tags[*]"
+    then:
+      function: enumeration
+      functionOptions:
+        values:
+          - Intentions
+          - CA
+  consul-connect-operation-id-camelcase:
+    description: Every operation must define an operationId using camelCase
+    severity: error
+    given: "$.paths.*[get,put,post,delete,patch].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]+$"
+  consul-connect-token-security:
+    description: A ConsulToken security scheme should be declared
+    severity: warn
+    given: "$.components.securitySchemes"
+    then:
+      function: truthy

@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://developer.hashicorp.com/consul/schemas/intention.json",
+  "title": "Consul Connect Intention",
+  "description": "An intention authorizes or denies traffic between two services in the Consul service mesh.",
+  "type": "object",
+  "properties": {
+    "ID": {
+      "type": "string",
+      "description": "Server-assigned UUID (deprecated in v1.9+ in favor of source/destination addressing)."
+    },
+    "SourceName": {
+      "type": "string",
+      "description": "Source service name. Use '*' for any source."
+    },
+    "DestinationName": {
+      "type": "string",
+      "description": "Destination service name."
+    },
+    "SourceNS": {
+      "type": "string",
+      "description": "Source namespace (Consul Enterprise)."
+    },
+    "DestinationNS": {
+      "type": "string",
+      "description": "Destination namespace (Consul Enterprise)."
+    },
+    "Action": {
+      "type": "string",
+      "enum": ["allow", "deny"],
+      "description": "Whether the intention permits or denies the connection."
+    },
+    "Description": {
+      "type": "string",
+      "description": "Human-readable description of the intention."
+    },
+    "Precedence": {
+      "type": "integer",
+      "description": "Server-computed precedence used to evaluate overlapping intentions."
+    },
+    "Meta": {
+      "type": "object",
+      "description": "Arbitrary key/value metadata.",
+      "additionalProperties": { "type": "string" }
+    }
+  },
+  "required": ["SourceName", "DestinationName", "Action"]
+}
