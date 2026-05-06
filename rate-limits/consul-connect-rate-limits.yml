@@ -4,100 +4,60 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Consul Connect
 providerId: consul-connect
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
   - Consul
-  - Envoy
   - HashiCorp
-  - Intentions
-  - Kubernetes
-  - mTLS
   - Service Mesh
-  - Sidecar
-  - Zero Trust
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Consul Connect API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+description: Consul Connect's HTTP API is exposed by self-hosted Consul agents (default port 8500/8501).
+  Rate limiting is operator-configured rather than imposed by HashiCorp — Consul ships built-in client-
+  and server-side RPC rate-limiting (`limits.http_max_conns_per_client`, `limits.rpc_rate`, `limits.rpc_max_burst`,
+  Enterprise-only `limits.request_limits`) and per-key ACL token enforcement. Cluster operators set
+  the actual limits to protect the agent and the Raft leader.
+sources:
+  - https://developer.hashicorp.com/consul/docs/agent/config/config-files#limits
+  - https://developer.hashicorp.com/consul/api-docs/connect
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
   serviceUnavailable: 503
+  rpcTooManyRequests: 429
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Consul Connect HTTP API
-      - Consul Connect Configuration Entries
-      - Consul Connect Gateways
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Consul Connect HTTP API
-      - Consul Connect Configuration Entries
-      - Consul Connect Gateways
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Consul Connect HTTP API
-      - Consul Connect Configuration Entries
-      - Consul Connect Gateways
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Consul Connect HTTP API
-      - Consul Connect Configuration Entries
-      - Consul Connect Gateways
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Consul Connect HTTP API
-      - Consul Connect Configuration Entries
-      - Consul Connect Gateways
+  - name: Operator-Configured HTTP Connection Limit
+    scope: agent/client-ip
+    metric: concurrent_connections
+    limit: 'configured via limits.http_max_conns_per_client'
+    notes: Default Consul agent setting; tune to bound per-client HTTP concurrency against the agent.
+  - name: Operator-Configured RPC Rate
+    scope: agent
+    metric: rpc_per_second
+    limit: 'configured via limits.rpc_rate and limits.rpc_max_burst'
+    notes: Token-bucket rate limit on RPCs leaving the agent; off by default.
+  - name: Enterprise Read/Write Request Limits
+    scope: agent
+    metric: requests_per_second
+    limit: 'configured via limits.request_limits.{read_rate, write_rate} (Consul Enterprise)'
+    notes: Enterprise-only request-rate limiting on the HTTP API and gRPC server; supports `mode = enforcing
+      / permissive / disabled`.
+  - name: ACL Token Quota
+    scope: ACL token
+    metric: varies
+    limit: 'enforced via X-Consul-Token policies'
+    notes: Authorization (not throughput) is enforced through ACL policies; effective limits are operator-defined.
 policies:
+  - name: Operator-Owned Limits
+    description: HashiCorp does not impose rate limits on the self-hosted Consul HTTP API; cluster operators
+      configure agent and Raft-leader-side rate limits via the `limits` block in the Consul agent config.
   - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+    description: Clients should respect 429 / 503 responses with exponential backoff and jitter; Consul
+      returns `Retry-After` when a request is rate-limited.
+  - name: Request Limits Modes
+    description: Consul Enterprise's request_limits supports enforcing, permissive, and disabled modes
+      to allow operators to observe before enforcing.
+  - name: Federation Considerations
+    description: Cross-datacenter / WAN federation traffic adds RPC load; tune `limits.rpc_*` accordingly
+      on edge agents and the leader.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
