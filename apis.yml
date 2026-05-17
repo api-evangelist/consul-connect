@@ -2,7 +2,7 @@ aid: consul-connect
 url: >-
   https://raw.githubusercontent.com/api-evangelist/consul-connect/refs/heads/main/apis.yml
 name: Consul Connect
-x-type: opensource
+kind: opensource
 description: >-
   Consul Connect is the service mesh subsystem of HashiCorp Consul. Connect
   provides service identity, mTLS, traffic authorization via intentions, and
@@ -139,7 +139,7 @@ apis:
 common:
   - type: Website
     url: https://www.consul.io/
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/consul-connect-context.jsonld
   - type: JSONSchema
     url: json-schema/consul-connect-intention-schema.json
@@ -157,11 +157,11 @@ common:
     url: https://developer.hashicorp.com/consul/api-docs/connect
   - type: GitHubRepository
     url: https://github.com/hashicorp/consul
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/hashicorp
   - type: Issue Tracker
     url: https://github.com/hashicorp/consul/issues
-  - type: Change Log
+  - type: ChangeLog
     url: https://github.com/hashicorp/consul/releases
   - type: License
     url: https://github.com/hashicorp/consul/blob/main/LICENSE
