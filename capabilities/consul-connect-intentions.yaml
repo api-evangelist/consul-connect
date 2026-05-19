@@ -1,0 +1,309 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: HashiCorp Consul Connect API — Intentions
+  description: 'HashiCorp Consul Connect API — Intentions. 6 operations. Lead operation: List all intentions. Self-contained
+    Naftiko capability covering one Consul Connect business surface.'
+  tags:
+  - Consul Connect
+  - Intentions
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONSUL_CONNECT_API_KEY: CONSUL_CONNECT_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: consul-connect-intentions
+    baseUri: http://localhost:8500/v1
+    description: HashiCorp Consul Connect API — Intentions business capability. Self-contained, no shared references.
+    resources:
+    - name: connect-intentions
+      path: /connect/intentions
+      operations:
+      - name: listintentions
+        method: GET
+        description: List all intentions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: filter
+          in: query
+          type: string
+          description: Filter expression for intentions
+    - name: connect-intentions-check
+      path: /connect/intentions/check
+      operations:
+      - name: checkintention
+        method: GET
+        description: Check if a connection would be authorized
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: source
+          in: query
+          type: string
+          required: true
+        - name: destination
+          in: query
+          type: string
+          required: true
+    - name: connect-intentions-exact
+      path: /connect/intentions/exact
+      operations:
+      - name: readintentionbyexact
+        method: GET
+        description: Read intention by source and destination
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: source
+          in: query
+          type: string
+          required: true
+        - name: destination
+          in: query
+          type: string
+          required: true
+      - name: upsertintentionbyexact
+        method: PUT
+        description: Create or replace intention by source and destination
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: source
+          in: query
+          type: string
+          required: true
+        - name: destination
+          in: query
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteintentionbyexact
+        method: DELETE
+        description: Delete intention by source and destination
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: source
+          in: query
+          type: string
+          required: true
+        - name: destination
+          in: query
+          type: string
+          required: true
+    - name: connect-intentions-match
+      path: /connect/intentions/match
+      operations:
+      - name: matchintentions
+        method: GET
+        description: List intentions matching a source or destination
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: by
+          in: query
+          type: string
+          required: true
+        - name: name
+          in: query
+          type: string
+          required: true
+    authentication:
+      type: apikey
+      key: X-Consul-Token
+      value: '{{env.CONSUL_CONNECT_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: consul-connect-intentions-rest
+    port: 8080
+    description: REST adapter for HashiCorp Consul Connect API — Intentions. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/connect/intentions
+      name: connect-intentions
+      description: REST surface for connect-intentions.
+      operations:
+      - method: GET
+        name: listintentions
+        description: List all intentions
+        call: consul-connect-intentions.listintentions
+        with:
+          filter: rest.filter
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/connect/intentions/check
+      name: connect-intentions-check
+      description: REST surface for connect-intentions-check.
+      operations:
+      - method: GET
+        name: checkintention
+        description: Check if a connection would be authorized
+        call: consul-connect-intentions.checkintention
+        with:
+          source: rest.source
+          destination: rest.destination
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/connect/intentions/exact
+      name: connect-intentions-exact
+      description: REST surface for connect-intentions-exact.
+      operations:
+      - method: GET
+        name: readintentionbyexact
+        description: Read intention by source and destination
+        call: consul-connect-intentions.readintentionbyexact
+        with:
+          source: rest.source
+          destination: rest.destination
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: upsertintentionbyexact
+        description: Create or replace intention by source and destination
+        call: consul-connect-intentions.upsertintentionbyexact
+        with:
+          source: rest.source
+          destination: rest.destination
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteintentionbyexact
+        description: Delete intention by source and destination
+        call: consul-connect-intentions.deleteintentionbyexact
+        with:
+          source: rest.source
+          destination: rest.destination
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/connect/intentions/match
+      name: connect-intentions-match
+      description: REST surface for connect-intentions-match.
+      operations:
+      - method: GET
+        name: matchintentions
+        description: List intentions matching a source or destination
+        call: consul-connect-intentions.matchintentions
+        with:
+          by: rest.by
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: consul-connect-intentions-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for HashiCorp Consul Connect API — Intentions. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: list-all-intentions
+      description: List all intentions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: consul-connect-intentions.listintentions
+      with:
+        filter: tools.filter
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: check-if-connection-would-be
+      description: Check if a connection would be authorized
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: consul-connect-intentions.checkintention
+      with:
+        source: tools.source
+        destination: tools.destination
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-intention-source-and-destination
+      description: Read intention by source and destination
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: consul-connect-intentions.readintentionbyexact
+      with:
+        source: tools.source
+        destination: tools.destination
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-replace-intention-source-and
+      description: Create or replace intention by source and destination
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: consul-connect-intentions.upsertintentionbyexact
+      with:
+        source: tools.source
+        destination: tools.destination
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-intention-source-and-destination
+      description: Delete intention by source and destination
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: consul-connect-intentions.deleteintentionbyexact
+      with:
+        source: tools.source
+        destination: tools.destination
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-intentions-matching-source-destination
+      description: List intentions matching a source or destination
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: consul-connect-intentions.matchintentions
+      with:
+        by: tools.by
+        name: tools.name
+      outputParameters:
+      - type: object
+        mapping: $.
