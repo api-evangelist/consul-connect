@@ -1,0 +1,247 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "HashiCorp Consul Connect API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Consul-Token",
+      "value": "{{X-Consul-Token}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Intentions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all intentions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/connect/intentions",
+            "params": [
+              {
+                "name": "ns",
+                "value": "",
+                "type": "query",
+                "description": "Namespace (Consul Enterprise)"
+              },
+              {
+                "name": "partition",
+                "value": "",
+                "type": "query",
+                "description": "Admin partition (Consul Enterprise)"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter expression for intentions"
+              }
+            ]
+          },
+          "docs": "List all intentions"
+        },
+        {
+          "info": {
+            "name": "Read intention by source and destination",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/connect/intentions/exact",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "destination",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ns",
+                "value": "",
+                "type": "query",
+                "description": "Namespace (Consul Enterprise)"
+              },
+              {
+                "name": "partition",
+                "value": "",
+                "type": "query",
+                "description": "Admin partition (Consul Enterprise)"
+              }
+            ]
+          },
+          "docs": "Read intention by source and destination"
+        },
+        {
+          "info": {
+            "name": "Create or replace intention by source and destination",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/connect/intentions/exact",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "destination",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create or replace intention by source and destination"
+        },
+        {
+          "info": {
+            "name": "Delete intention by source and destination",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:8500/v1/connect/intentions/exact",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "destination",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Delete intention by source and destination"
+        },
+        {
+          "info": {
+            "name": "Check if a connection would be authorized",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/connect/intentions/check",
+            "params": [
+              {
+                "name": "source",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "destination",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Check if a connection would be authorized"
+        },
+        {
+          "info": {
+            "name": "List intentions matching a source or destination",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/connect/intentions/match",
+            "params": [
+              {
+                "name": "by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List intentions matching a source or destination"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "CA",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List CA root certificates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/connect/ca/roots",
+            "params": [
+              {
+                "name": "pem",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List CA root certificates"
+        },
+        {
+          "info": {
+            "name": "Get CA configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:8500/v1/connect/ca/configuration"
+          },
+          "docs": "Get CA configuration"
+        },
+        {
+          "info": {
+            "name": "Update CA configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "http://localhost:8500/v1/connect/ca/configuration",
+            "params": [
+              {
+                "name": "ForceWithoutCrossSigning",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update CA configuration"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
