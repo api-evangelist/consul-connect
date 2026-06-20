@@ -8,7 +8,7 @@ description: >-
   built-in certificate authority that can also be backed by Vault or external PKI, supports mesh, terminating, ingress,
   and API gateways, and spans virtual machines, Kubernetes, AWS ECS, AWS Lambda, and Nomad runtimes. Operators interact
   with Connect through the consul CLI, the HTTP API, configuration entries, and Kubernetes Custom Resource Definitions.
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
   - Consul
   - Envoy
