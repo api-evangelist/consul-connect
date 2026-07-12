@@ -1,0 +1,15 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/consul-connect-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: ConsulToken
+  type: apiKey
+  in: header
+  parameter: X-Consul-Token
+  sources:
+  - openapi/consul-connect-openapi.yml

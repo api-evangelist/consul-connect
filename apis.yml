@@ -127,6 +127,10 @@ apis:
       - Expose mesh services to external clients with TLS
       - Allow mesh services to call legacy non-mesh endpoints
 common:
+  - type: DomainSecurity
+    url: security/consul-connect-domain-security.yml
+  - type: Authentication
+    url: authentication/consul-connect-authentication.yml
   - type: Website
     url: https://www.consul.io/
   - type: JSONLD
@@ -155,6 +159,8 @@ common:
     url: https://github.com/hashicorp/consul/releases
   - type: License
     url: https://github.com/hashicorp/consul/blob/main/LICENSE
+  - url: https://www.hashicorp.com/blog/feed.xml
+    type: Blog
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
