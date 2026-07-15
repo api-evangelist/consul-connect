@@ -127,6 +127,8 @@ apis:
       - Expose mesh services to external clients with TLS
       - Allow mesh services to call legacy non-mesh endpoints
 common:
+  - type: AgenticAccess
+    url: agentic-access/consul-connect-agentic-access.yml
   - type: DomainSecurity
     url: security/consul-connect-domain-security.yml
   - type: Authentication
