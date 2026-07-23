@@ -1,0 +1,134 @@
+openapi: 3.0.3
+info:
+  title: HashiCorp Consul Connect CA API
+  description: HTTP API for the Consul Connect service mesh subsystem of HashiCorp Consul. Connect APIs cover intentions (service-to-service traffic authorization) and certificate authority (CA) management for the built-in mesh CA. ACL tokens are typically passed via the X-Consul-Token header.
+  version: 1.0.0
+  contact:
+    name: HashiCorp Consul
+    url: https://developer.hashicorp.com/consul
+servers:
+- url: http://localhost:8500/v1
+  description: Local Consul agent
+- url: https://consul.example.com/v1
+  description: Production Consul cluster
+security:
+- ConsulToken: []
+tags:
+- name: CA
+  description: Certificate authority management
+paths:
+  /connect/ca/roots:
+    get:
+      operationId: listCaRoots
+      summary: List CA root certificates
+      tags:
+      - CA
+      parameters:
+      - name: pem
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Active root ID and root certificates
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaRoots'
+  /connect/ca/configuration:
+    get:
+      operationId: getCaConfiguration
+      summary: Get CA configuration
+      tags:
+      - CA
+      responses:
+        '200':
+          description: Current CA configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaConfiguration'
+    put:
+      operationId: updateCaConfiguration
+      summary: Update CA configuration
+      tags:
+      - CA
+      parameters:
+      - name: ForceWithoutCrossSigning
+        in: query
+        schema:
+          type: boolean
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CaConfiguration'
+      responses:
+        '200':
+          description: Configuration updated
+components:
+  schemas:
+    CaConfiguration:
+      type: object
+      properties:
+        Provider:
+          type: string
+          example: consul
+        Config:
+          type: object
+          additionalProperties: true
+        State:
+          type: object
+          additionalProperties: true
+        ForceWithoutCrossSigning:
+          type: boolean
+        ModifyIndex:
+          type: integer
+    CaRoots:
+      type: object
+      properties:
+        ActiveRootID:
+          type: string
+        TrustDomain:
+          type: string
+        Roots:
+          type: array
+          items:
+            $ref: '#/components/schemas/CaRoot'
+    CaRoot:
+      type: object
+      properties:
+        ID:
+          type: string
+        Name:
+          type: string
+        SerialNumber:
+          type: integer
+        SigningKeyID:
+          type: string
+        ExternalTrustDomain:
+          type: string
+        NotBefore:
+          type: string
+          format: date-time
+        NotAfter:
+          type: string
+          format: date-time
+        RootCert:
+          type: string
+        IntermediateCerts:
+          type: array
+          items:
+            type: string
+        Active:
+          type: boolean
+        PrivateKeyType:
+          type: string
+        PrivateKeyBits:
+          type: integer
+  securitySchemes:
+    ConsulToken:
+      type: apiKey
+      in: header
+      name: X-Consul-Token
