@@ -1,0 +1,16 @@
+{
+  "provider": "consul-connect",
+  "sources": [
+    "consul-connect-ca-api-openapi.yml",
+    "consul-connect-intentions-api-openapi.yml"
+  ],
+  "outputs": [
+    "consul-connect-ca-api-openapi.yml",
+    "consul-connect-intentions-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
