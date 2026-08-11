@@ -142,6 +142,10 @@ apis:
   - type: JSONSchema
     url: json-schema/consul-connect-intention-schema.json
 common:
+  - type: CodeOfConduct
+    url: https://github.com/hashicorp/.github/blob/master/CODE_OF_CONDUCT.md
+  - type: ContributionGuide
+    url: https://github.com/hashicorp/consul/blob/main/.github/CONTRIBUTING.md
   - type: AgenticAccess
     url: agentic-access/consul-connect-agentic-access.yml
   - type: DomainSecurity
@@ -158,10 +162,6 @@ common:
     url: vocabulary/consul-connect-vocabulary.yml
   - type: SpectralRules
     url: rules/consul-connect-rules.yml
-  - type: Capability
-    url: capabilities/manage-service-intentions.yml
-  - type: Capability
-    url: capabilities/rotate-mesh-ca.yml
   - type: Documentation
     url: https://developer.hashicorp.com/consul/docs/connect
   - type: Documentation
