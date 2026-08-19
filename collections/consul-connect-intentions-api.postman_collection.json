@@ -1,0 +1,686 @@
+{
+  "item": [
+    {
+      "id": "3f000ea1-3754-4b5b-8654-58443cca0a8a",
+      "name": "Intentions",
+      "description": {
+        "content": "Service-to-service traffic authorization",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ff522aae-e4c3-4e43-9b15-707acad8906e",
+          "name": "List all intentions",
+          "request": {
+            "name": "List all intentions",
+            "description": {},
+            "url": {
+              "path": [
+                "connect",
+                "intentions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ns",
+                  "value": "<string>",
+                  "description": "Namespace (Consul Enterprise)"
+                },
+                {
+                  "disabled": false,
+                  "key": "partition",
+                  "value": "<string>",
+                  "description": "Admin partition (Consul Enterprise)"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Filter expression for intentions"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9fa092a5-322f-4ffe-8f4d-ec0448e8b4f6",
+              "name": "A list of intentions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "connect",
+                    "intentions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ns",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partition",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"ID\": \"string\",\n    \"SourceName\": \"string\",\n    \"DestinationName\": \"string\",\n    \"SourceNS\": \"string\",\n    \"DestinationNS\": \"string\",\n    \"Action\": \"allow\",\n    \"Description\": \"string\",\n    \"Precedence\": 4487,\n    \"Meta\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\"\n    },\n    \"CreateIndex\": 3965,\n    \"ModifyIndex\": 8244\n  },\n  {\n    \"ID\": \"string\",\n    \"SourceName\": \"string\",\n    \"DestinationName\": \"string\",\n    \"SourceNS\": \"string\",\n    \"DestinationNS\": \"string\",\n    \"Action\": \"deny\",\n    \"Description\": \"string\",\n    \"Precedence\": 5493,\n    \"Meta\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"CreateIndex\": 335,\n    \"ModifyIndex\": 526\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "739ab5d9-3a39-4696-90c8-6993eda08285",
+          "name": "Read intention by source and destination",
+          "request": {
+            "name": "Read intention by source and destination",
+            "description": {},
+            "url": {
+              "path": [
+                "connect",
+                "intentions",
+                "exact"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "source",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "destination",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "ns",
+                  "value": "<string>",
+                  "description": "Namespace (Consul Enterprise)"
+                },
+                {
+                  "disabled": false,
+                  "key": "partition",
+                  "value": "<string>",
+                  "description": "Admin partition (Consul Enterprise)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "199a381a-e5a9-4aae-b627-39f477b088f5",
+              "name": "Matching intention",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "connect",
+                    "intentions",
+                    "exact"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destination",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ns",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "partition",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ID\": \"string\",\n  \"SourceName\": \"string\",\n  \"DestinationName\": \"string\",\n  \"SourceNS\": \"string\",\n  \"DestinationNS\": \"string\",\n  \"Action\": \"allow\",\n  \"Description\": \"string\",\n  \"Precedence\": 9893,\n  \"Meta\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"CreateIndex\": 4281,\n  \"ModifyIndex\": 5242\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e7746aab-3e7c-42aa-8ff1-c6be19e4b534",
+          "name": "Create or replace intention by source and destination",
+          "request": {
+            "name": "Create or replace intention by source and destination",
+            "description": {},
+            "url": {
+              "path": [
+                "connect",
+                "intentions",
+                "exact"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "source",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "destination",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Action\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"Meta\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "438cbfb5-5142-4749-9b63-edafdcb11418",
+              "name": "Intention upserted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "connect",
+                    "intentions",
+                    "exact"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destination",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Action\": \"<string>\",\n  \"Description\": \"<string>\",\n  \"Meta\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8b1bf02d-5f8c-4ad9-871a-6ffddc914085",
+          "name": "Delete intention by source and destination",
+          "request": {
+            "name": "Delete intention by source and destination",
+            "description": {},
+            "url": {
+              "path": [
+                "connect",
+                "intentions",
+                "exact"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "source",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "destination",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8b47b94d-9da7-4001-87b1-cb1a56839958",
+              "name": "Intention deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "connect",
+                    "intentions",
+                    "exact"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destination",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3e0ba76e-346a-42ed-b165-b67354f833be",
+          "name": "Check if a connection would be authorized",
+          "request": {
+            "name": "Check if a connection would be authorized",
+            "description": {},
+            "url": {
+              "path": [
+                "connect",
+                "intentions",
+                "check"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "source",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "destination",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ecf291f3-1b94-435b-9026-c516ce22f8d0",
+              "name": "Authorization decision",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "connect",
+                    "intentions",
+                    "check"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "source",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "destination",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Allowed\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9f172c81-5a33-4f19-995b-44f50ae96c73",
+          "name": "List intentions matching a source or destination",
+          "request": {
+            "name": "List intentions matching a source or destination",
+            "description": {},
+            "url": {
+              "path": [
+                "connect",
+                "intentions",
+                "match"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "by",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "93ed61e5-21b8-4ed6-a51d-1fd60a9c8f04",
+              "name": "Matching intentions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "connect",
+                    "intentions",
+                    "match"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "by",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Consul-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": [\n    {\n      \"ID\": \"string\",\n      \"SourceName\": \"string\",\n      \"DestinationName\": \"string\",\n      \"SourceNS\": \"string\",\n      \"DestinationNS\": \"string\",\n      \"Action\": \"deny\",\n      \"Description\": \"string\",\n      \"Precedence\": 3750,\n      \"Meta\": {\n        \"key_0\": \"string\"\n      },\n      \"CreateIndex\": 8046,\n      \"ModifyIndex\": 3983\n    },\n    {\n      \"ID\": \"string\",\n      \"SourceName\": \"string\",\n      \"DestinationName\": \"string\",\n      \"SourceNS\": \"string\",\n      \"DestinationNS\": \"string\",\n      \"Action\": \"allow\",\n      \"Description\": \"string\",\n      \"Precedence\": 6449,\n      \"Meta\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"CreateIndex\": 712,\n      \"ModifyIndex\": 3044\n    }\n  ],\n  \"key_1\": [\n    {\n      \"ID\": \"string\",\n      \"SourceName\": \"string\",\n      \"DestinationName\": \"string\",\n      \"SourceNS\": \"string\",\n      \"DestinationNS\": \"string\",\n      \"Action\": \"deny\",\n      \"Description\": \"string\",\n      \"Precedence\": 4851,\n      \"Meta\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\",\n        \"key_2\": \"string\"\n      },\n      \"CreateIndex\": 3708,\n      \"ModifyIndex\": 1956\n    },\n    {\n      \"ID\": \"string\",\n      \"SourceName\": \"string\",\n      \"DestinationName\": \"string\",\n      \"SourceNS\": \"string\",\n      \"DestinationNS\": \"string\",\n      \"Action\": \"allow\",\n      \"Description\": \"string\",\n      \"Precedence\": 9494,\n      \"Meta\": {\n        \"key_0\": \"string\"\n      },\n      \"CreateIndex\": 6570,\n      \"ModifyIndex\": 5152\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8500/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Consul-Token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ca7bea83-1117-49ae-a80c-ceabc547848d",
+    "name": "HashiCorp Consul Connect CA Intentions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "HTTP API for the Consul Connect service mesh subsystem of HashiCorp Consul. Connect APIs cover intentions (service-to-service traffic authorization) and certificate authority (CA) management for the built-in mesh CA. ACL tokens are typically passed via the X-Consul-Token header.\n\nContact Support:\n Name: HashiCorp Consul",
+      "type": "text/plain"
+    }
+  }
+}
