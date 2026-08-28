@@ -8,6 +8,18 @@ description: >-
   built-in certificate authority that can also be backed by Vault or external PKI, supports mesh, terminating, ingress,
   and API gateways, and spans virtual machines, Kubernetes, AWS ECS, AWS Lambda, and Nomad runtimes. Operators interact
   with Connect through the consul CLI, the HTTP API, configuration entries, and Kubernetes Custom Resource Definitions.
+deliveryModel:
+  model: unknown
+  open_source: unknown
+  commercial: false
+  callable_host: false
+  label: Delivery model not determined — needs a product licence on record
+  confidence: low
+  source:
+  - openapi
+  - repository-unlicensed
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
