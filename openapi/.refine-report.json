@@ -1,8 +1,7 @@
 {
   "provider": "consul-connect",
   "sources": [
-    "consul-connect-ca-api-openapi.yml",
-    "consul-connect-intentions-api-openapi.yml"
+    "_original/consul-connect-openapi.yml"
   ],
   "outputs": [
     "consul-connect-ca-api-openapi.yml",
@@ -12,9 +11,12 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "consul-connect-ca-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "consul-connect-intentions-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "consul-connect-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "consul-connect-ca-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "consul-connect-intentions-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

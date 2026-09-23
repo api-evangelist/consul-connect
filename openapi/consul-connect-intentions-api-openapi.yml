@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: HashiCorp Consul Connect CA Intentions API
+  title: HashiCorp Consul Connect Intentions API
   description: HTTP API for the Consul Connect service mesh subsystem of HashiCorp Consul. Connect APIs cover intentions (service-to-service traffic authorization) and certificate authority (CA) management for the built-in mesh CA. ACL tokens are typically passed via the X-Consul-Token header.
   version: 1.0.0
   contact:
@@ -169,20 +169,21 @@ paths:
                   items:
                     $ref: '#/components/schemas/Intention'
 components:
-  parameters:
-    Namespace:
-      name: ns
-      in: query
-      description: Namespace (Consul Enterprise)
-      schema:
-        type: string
-    Partition:
-      name: partition
-      in: query
-      description: Admin partition (Consul Enterprise)
-      schema:
-        type: string
   schemas:
+    IntentionInput:
+      type: object
+      properties:
+        Action:
+          type: string
+          enum:
+          - allow
+          - deny
+        Description:
+          type: string
+        Meta:
+          type: object
+          additionalProperties:
+            type: string
     Intention:
       type: object
       properties:
@@ -213,20 +214,19 @@ components:
           type: integer
         ModifyIndex:
           type: integer
-    IntentionInput:
-      type: object
-      properties:
-        Action:
-          type: string
-          enum:
-          - allow
-          - deny
-        Description:
-          type: string
-        Meta:
-          type: object
-          additionalProperties:
-            type: string
+  parameters:
+    Partition:
+      name: partition
+      in: query
+      description: Admin partition (Consul Enterprise)
+      schema:
+        type: string
+    Namespace:
+      name: ns
+      in: query
+      description: Namespace (Consul Enterprise)
+      schema:
+        type: string
   securitySchemes:
     ConsulToken:
       type: apiKey
