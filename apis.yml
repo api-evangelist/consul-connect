@@ -10,6 +10,9 @@ description: >-
   with Connect through the consul CLI, the HTTP API, configuration entries, and Kubernetes Custom Resource Definitions.
 deliveryModel:
   model: unknown
+  license_evidence:
+    not_product:
+    - hashicorp/consul
   open_source: unknown
   commercial: false
   callable_host: false
@@ -17,8 +20,8 @@ deliveryModel:
   confidence: low
   source:
   - openapi
-  - repository-unlicensed
-  generated: '2026-08-28'
+  - repository-not-product
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: freemium

@@ -69,6 +69,17 @@ paths:
           description: Configuration updated
 components:
   schemas:
+    CaRoots:
+      type: object
+      properties:
+        ActiveRootID:
+          type: string
+        TrustDomain:
+          type: string
+        Roots:
+          type: array
+          items:
+            $ref: '#/components/schemas/CaRoot'
     CaConfiguration:
       type: object
       properties:
@@ -85,17 +96,6 @@ components:
           type: boolean
         ModifyIndex:
           type: integer
-    CaRoots:
-      type: object
-      properties:
-        ActiveRootID:
-          type: string
-        TrustDomain:
-          type: string
-        Roots:
-          type: array
-          items:
-            $ref: '#/components/schemas/CaRoot'
     CaRoot:
       type: object
       properties:

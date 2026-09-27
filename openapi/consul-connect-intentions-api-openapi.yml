@@ -170,20 +170,6 @@ paths:
                     $ref: '#/components/schemas/Intention'
 components:
   schemas:
-    IntentionInput:
-      type: object
-      properties:
-        Action:
-          type: string
-          enum:
-          - allow
-          - deny
-        Description:
-          type: string
-        Meta:
-          type: object
-          additionalProperties:
-            type: string
     Intention:
       type: object
       properties:
@@ -214,6 +200,20 @@ components:
           type: integer
         ModifyIndex:
           type: integer
+    IntentionInput:
+      type: object
+      properties:
+        Action:
+          type: string
+          enum:
+          - allow
+          - deny
+        Description:
+          type: string
+        Meta:
+          type: object
+          additionalProperties:
+            type: string
   parameters:
     Partition:
       name: partition
