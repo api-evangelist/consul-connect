@@ -69,33 +69,6 @@ paths:
           description: Configuration updated
 components:
   schemas:
-    CaRoots:
-      type: object
-      properties:
-        ActiveRootID:
-          type: string
-        TrustDomain:
-          type: string
-        Roots:
-          type: array
-          items:
-            $ref: '#/components/schemas/CaRoot'
-    CaConfiguration:
-      type: object
-      properties:
-        Provider:
-          type: string
-          example: consul
-        Config:
-          type: object
-          additionalProperties: true
-        State:
-          type: object
-          additionalProperties: true
-        ForceWithoutCrossSigning:
-          type: boolean
-        ModifyIndex:
-          type: integer
     CaRoot:
       type: object
       properties:
@@ -126,6 +99,33 @@ components:
         PrivateKeyType:
           type: string
         PrivateKeyBits:
+          type: integer
+    CaRoots:
+      type: object
+      properties:
+        ActiveRootID:
+          type: string
+        TrustDomain:
+          type: string
+        Roots:
+          type: array
+          items:
+            $ref: '#/components/schemas/CaRoot'
+    CaConfiguration:
+      type: object
+      properties:
+        Provider:
+          type: string
+          example: consul
+        Config:
+          type: object
+          additionalProperties: true
+        State:
+          type: object
+          additionalProperties: true
+        ForceWithoutCrossSigning:
+          type: boolean
+        ModifyIndex:
           type: integer
   securitySchemes:
     ConsulToken:
