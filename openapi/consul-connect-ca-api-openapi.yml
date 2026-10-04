@@ -69,6 +69,22 @@ paths:
           description: Configuration updated
 components:
   schemas:
+    CaConfiguration:
+      type: object
+      properties:
+        Provider:
+          type: string
+          example: consul
+        Config:
+          type: object
+          additionalProperties: true
+        State:
+          type: object
+          additionalProperties: true
+        ForceWithoutCrossSigning:
+          type: boolean
+        ModifyIndex:
+          type: integer
     CaRoot:
       type: object
       properties:
@@ -111,22 +127,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CaRoot'
-    CaConfiguration:
-      type: object
-      properties:
-        Provider:
-          type: string
-          example: consul
-        Config:
-          type: object
-          additionalProperties: true
-        State:
-          type: object
-          additionalProperties: true
-        ForceWithoutCrossSigning:
-          type: boolean
-        ModifyIndex:
-          type: integer
   securitySchemes:
     ConsulToken:
       type: apiKey

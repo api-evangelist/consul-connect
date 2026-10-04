@@ -170,20 +170,6 @@ paths:
                     $ref: '#/components/schemas/Intention'
 components:
   schemas:
-    IntentionInput:
-      type: object
-      properties:
-        Action:
-          type: string
-          enum:
-          - allow
-          - deny
-        Description:
-          type: string
-        Meta:
-          type: object
-          additionalProperties:
-            type: string
     Intention:
       type: object
       properties:
@@ -214,17 +200,31 @@ components:
           type: integer
         ModifyIndex:
           type: integer
+    IntentionInput:
+      type: object
+      properties:
+        Action:
+          type: string
+          enum:
+          - allow
+          - deny
+        Description:
+          type: string
+        Meta:
+          type: object
+          additionalProperties:
+            type: string
   parameters:
-    Partition:
-      name: partition
-      in: query
-      description: Admin partition (Consul Enterprise)
-      schema:
-        type: string
     Namespace:
       name: ns
       in: query
       description: Namespace (Consul Enterprise)
+      schema:
+        type: string
+    Partition:
+      name: partition
+      in: query
+      description: Admin partition (Consul Enterprise)
       schema:
         type: string
   securitySchemes:
