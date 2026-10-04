@@ -1,0 +1,27 @@
+slug: consul-connect
+provider: Consul Connect
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: CA
+  spec_file: consul-connect-ca-api-openapi.yml
+  capability_id: BC-620
+  capability_id_l1: BC-620
+  capability_name: Cybersecurity Management
+  confidence: 0.82
+  evidence: List CA root certificates; Get CA configuration; Update CA configuration; schemas CaRoot,
+    CaRoots, CaConfiguration
+  reason: Operations manage the service mesh's built-in certificate authority (root certs and CA configuration)
+    underpinning service identity and mTLS — squarely Cybersecurity Management. Evidence does not clearly
+    distinguish between Identity & Access Management and Security Architecture Management, so no L2 is
+    asserted.

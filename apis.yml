@@ -159,6 +159,9 @@ apis:
   - type: JSONSchema
     url: json-schema/consul-connect-intention-schema.json
 common:
+  - type: CapabilityMap
+    url: capabilities/consul-connect-capability-edges.yml
+    name: Consul Connect Business Capability Map
   - type: CodeOfConduct
     url: https://github.com/hashicorp/.github/blob/master/CODE_OF_CONDUCT.md
   - type: ContributionGuide
