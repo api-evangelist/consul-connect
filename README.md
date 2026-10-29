@@ -1,4 +1,4 @@
-# Consul Connect (consul-connect)
+# Consul Connect
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,117 +66,146 @@
 
 Consul Connect is the service mesh subsystem of HashiCorp Consul. Connect provides service identity, mTLS, traffic authorization via intentions, and L7 traffic management through Envoy sidecar proxies. Consul Connect ships with a built-in certificate authority that can also be backed by Vault or external PKI, supports mesh, terminating, ingress, and API gateways, and spans virtual machines, Kubernetes, AWS ECS, AWS Lambda, and Nomad runtimes. Operators interact with Connect through the consul CLI, the HTTP API, configuration entries, and Kubernetes Custom Resource Definitions.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/consul-connect/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/consul-connect/refs/heads/main/apis.yml)
+**Areas:** Consul · Envoy · HashiCorp · Intentions · Kubernetes · mTLS · Service Mesh · Sidecar · Zero Trust
 
-## Tags
+## Consul Connect on APIs.io
 
-- Consul
-- Envoy
-- HashiCorp
-- Intentions
-- Kubernetes
-- mTLS
-- Service Mesh
-- Sidecar
-- Zero Trust
+Everything profiled for Consul Connect is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/consul-connect/](https://apis.io/providers/consul-connect/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (4)
 
-- **Created:** 2025-01-01
-- **Modified:** 2026-05-19
+- [Consul Connect Configuration Entries](https://apis.io/apis/consul-connect/consul-connect-config-entries/) — Consul Connect configuration entries (service-defaults, service-resolver, service-router, service-splitter, service-intentions, mesh, proxy-defaults) that…
+- [Consul Connect Gateways](https://apis.io/apis/consul-connect/consul-connect-gateways/) — Consul Connect supports four gateway types for traffic flowing into and out of the mesh: mesh gateways for cross-datacenter and cross-partition traffic,…
+- [Consul Connect CA API](https://apis.io/apis/consul-connect/consul-connect-ca-api/) — Certificate authority management
+- [Consul Connect Intentions API](https://apis.io/apis/consul-connect/consul-connect-intentions-api/) — Service-to-service traffic authorization
 
-## APIs
+### Published properties
 
-### Consul Connect HTTP API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-The HTTP API exposed by Consul agents under /v1/connect for managing intentions, the Connect certificate authority, and related mesh operations. Connect-related endpoints also exist in the Agent and Catalog APIs for sidecar proxy registration and CA leaf signing.
+#### Agentic access (1)
 
-- **Human URL:** [https://developer.hashicorp.com/consul/api-docs/connect](https://developer.hashicorp.com/consul/api-docs/connect)
-- **Base URL:** `http://localhost:8500/v1`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Consul Connect Agentic Access](https://apis.io/agentic-access/consul-connect/consul-connect-agentic-access/)
 
-- HTTP API
-- Intentions
-- mTLS
-- Service Mesh
+#### JSON Schema (1)
 
-#### Properties
+The data models the API reads and writes.
 
-- [Documentation](https://developer.hashicorp.com/consul/api-docs/connect)
-- [Reference](https://developer.hashicorp.com/consul/api-docs/connect/intentions)
-- [Reference](https://developer.hashicorp.com/consul/api-docs/connect/ca)
-- [OpenAPI](openapi/consul-connect-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/consul-connect.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/consul-connect.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/consul-connect-intention-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [Consul Connect Intention](https://apis.io/schemas/consul-connect/consul-connect-intention/)
 
-### Consul Connect Configuration Entries
+#### JSON-LD (1)
 
-Consul Connect configuration entries (service-defaults, service-resolver, service-router, service-splitter, service-intentions, mesh, proxy-defaults) that declaratively configure mesh behavior. Configuration entries are managed via the /v1/config API and via Kubernetes Custom Resource Definitions when running on Kubernetes.
+Linked-data contexts for the provider's vocabulary.
 
-- **Human URL:** [https://developer.hashicorp.com/consul/docs/connect/config-entries](https://developer.hashicorp.com/consul/docs/connect/config-entries)
-- **Base URL:** `https://developer.hashicorp.com`
+- [Consul Connect Context](https://apis.io/jsonld/consul-connect/consul-connect-context/)
 
-#### Tags
+#### Vocabulary (1)
 
-- Configuration Entries
-- CRD
-- Kubernetes
-- L7 Routing
+The provider's domain terms, defined.
 
-#### Properties
+- [Consul Connect Service Mesh Vocabulary](https://apis.io/vocabularies/consul-connect/consul-connect-vocabulary/)
 
-- [Documentation](https://developer.hashicorp.com/consul/docs/connect/config-entries)
-- [Reference](https://developer.hashicorp.com/consul/docs/connect/config-entries/service-defaults)
-- [Reference](https://developer.hashicorp.com/consul/docs/connect/config-entries/service-router)
-- [Reference](https://developer.hashicorp.com/consul/docs/connect/config-entries/service-splitter)
-- [Postman Collection](collections/consul-connect.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/consul-connect.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Collections (3)
 
-### Consul Connect Gateways
+Postman and Open Collection request collections.
 
-Consul Connect supports four gateway types for traffic flowing into and out of the mesh: mesh gateways for cross-datacenter and cross-partition traffic, ingress gateways for North-South entry, terminating gateways for access to non-mesh services, and the Consul API Gateway implementing the Kubernetes Gateway API.
+- [HashiCorp Consul Connect API](https://apis.io/collections/consul-connect/open-consul-connect/)
+- [HashiCorp Consul Connect CA API](https://apis.io/collections/consul-connect/open-consul-connect-ca-api/)
+- [HashiCorp Consul Connect CA Intentions API](https://apis.io/collections/consul-connect/open-consul-connect-intentions-api/)
 
-- **Human URL:** [https://developer.hashicorp.com/consul/docs/connect/gateways](https://developer.hashicorp.com/consul/docs/connect/gateways)
-- **Base URL:** `https://developer.hashicorp.com`
+#### Governance rules (2)
 
-#### Tags
+Spectral rulesets for the provider's contracts.
 
-- API Gateway
-- Gateways
-- Ingress
-- Mesh Gateway
-- Terminating Gateway
+- [Consul Connect — jsonschema rules](https://apis.io/rules/consul-connect/consul-connect-jsonschema-spectral-rules/)
+- [Consul Connect API Rules](https://apis.io/rules/consul-connect/consul-connect-rules/)
 
-#### Properties
+#### Security (2)
 
-- [Documentation](https://developer.hashicorp.com/consul/docs/connect/gateways)
-- [Reference](https://developer.hashicorp.com/consul/docs/connect/gateways/mesh-gateway)
-- [Reference](https://developer.hashicorp.com/consul/docs/connect/gateways/ingress-gateway)
-- [Reference](https://developer.hashicorp.com/consul/docs/connect/gateways/terminating-gateway)
-- [Reference](https://developer.hashicorp.com/consul/docs/api-gateway)
-- [Postman Collection](collections/consul-connect.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/consul-connect.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Authentication, trust centre, and vulnerability disclosure.
 
-## Common Properties
+- [Consul Connect Authentication](https://apis.io/security/consul-connect/consul-connect-authentication/)
+- [Consul Connect Domain Security](https://apis.io/security/consul-connect/consul-connect-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Consul Connect Plans Pricing](https://apis.io/plans/consul-connect/consul-connect-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Consul Connect Rate Limits](https://apis.io/rate-limits/consul-connect/consul-connect-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Consul Connect Finops](https://apis.io/finops/consul-connect/consul-connect-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.consul.io/)
-- [JSON-LD](json-ld/consul-connect-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [JSON Schema](json-schema/consul-connect-intention-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [Vocabulary](vocabulary/consul-connect-vocabulary.yml)
-- [Spectral Rules](rules/consul-connect-rules.yml)
-- [Capability](capabilities/manage-service-intentions.yml)
-- [Capability](capabilities/rotate-mesh-ca.yml)
 - [Documentation](https://developer.hashicorp.com/consul/docs/connect)
-- [Documentation](https://developer.hashicorp.com/consul/api-docs/connect)
-- [GitHub Repository](https://github.com/hashicorp/consul)
-- [GitHub Organization](https://github.com/hashicorp)
-- [Issue  Tracker](https://github.com/hashicorp/consul/issues)
 - [Changelog](https://github.com/hashicorp/consul/releases)
-- [License](https://github.com/hashicorp/consul/blob/main/LICENSE)
+- [Blog](https://www.hashicorp.com/blog/feed.xml)
+- [GitHub](https://github.com/hashicorp)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 33.5** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 57.1 |
+| Contract quality | 46.3 |
+| Contract governance | 27.3 |
+| Operational transparency | 26.3 |
+| Developer ergonomics | 31.0 |
+| Access clarity | 7.9 |
+
+**Agent readiness 17.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 16.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/consul-connect/](https://apis.io/providers/consul-connect/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Consul Connect: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/consul-connect/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
